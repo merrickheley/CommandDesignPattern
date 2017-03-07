@@ -15,8 +15,9 @@
     </svg>
 
     <div id="bottomMenu">
-        <button id="Undo" class="btn" type="button">Undo</button>
-        <button id="Redo" class="btn" type="button">Redo</button>
+        <!-- This is bad practice, do not use -->
+        <button id="undo" class="btn" type="button" onclick="invoker.undo();">Undo</button>
+        <button id="redo" class="btn" type="button" onclick="invoker.redo();">Redo</button>
     </div>
 
 </body>

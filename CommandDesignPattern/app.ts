@@ -1,5 +1,8 @@
 ﻿///<reference path="Scripts/typings/snapsvg/snapsvg.d.ts" />
 
+// Lazy global variable. This is bad practice.
+var invoker: Command.Invoker;
+
 module Command {
 
     interface ICommand {
@@ -7,7 +10,7 @@ module Command {
         undo(): void;
     }
 
-    class Invoker {
+    export class Invoker {
         private commands = new Array();
         private current = -1;
 
@@ -52,13 +55,14 @@ module Command {
         }
 
         public undo() {
+            console.log('undo pressed');
         }
     }
 
     window.onload = () => {
 
         let s = Snap('svg');
-        let invoker = new Invoker();
+        invoker = new Invoker();
 
         let rect = s.rect(20, 20, 40, 40);
         let circle = s.circle(60, 150, 50);

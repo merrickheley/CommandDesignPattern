@@ -1,28 +1,25 @@
-﻿class Greeter {
-    element: HTMLElement;
-    span: HTMLElement;
-    timerToken: number;
-
-    constructor(element: HTMLElement) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
-    }
-
-    start() {
-        this.timerToken = setInterval(() => this.span.innerHTML = new Date().toUTCString(), 500);
-    }
-
-    stop() {
-        clearTimeout(this.timerToken);
-    }
-
-}
+﻿///<reference path="Scripts/typings/snapsvg/snapsvg.d.ts" />
 
 window.onload = () => {
-    var el = document.getElementById('content');
-    var greeter = new Greeter(el);
-    greeter.start();
+
+    let s = Snap('svg');
+
+    let rect = s.rect(20, 20, 40, 40);
+    let circle = s.circle(60, 150, 50);
+
+    let move = function (dx, dy) {
+        this.attr({
+            transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
+        });
+    }
+
+    let start = function () {
+        this.data('origTransform', this.transform().local);
+    }
+    let stop = function () {
+        console.log('finished dragging');
+    }
+
+    rect.drag(move, start, stop);
+    circle.drag(move, start, stop);;
 };

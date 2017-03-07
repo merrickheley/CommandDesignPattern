@@ -240,3 +240,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+CommandDesignPattern/Scripts/
+CommandDesignPattern/app.js
+*.js.map

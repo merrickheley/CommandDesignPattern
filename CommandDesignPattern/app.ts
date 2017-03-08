@@ -17,16 +17,20 @@ module Command {
         constructor() {
         }
 
-        ExecuteCommand(command: ICommand) {
+        StoreCommand(command: ICommand) {
             if (this.commands.length - 1 > this.current) {
                 var next = this.current + 1
                 this.commands.splice(next, this.commands.length - next);
             }
 
             this.commands.push(command);
-            command.execute();
             this.current = this.commands.length - 1;
         }
+
+        ExecuteCommand(command: ICommand) {
+            this.StoreCommand(command);
+            command.execute();
+        }        
 
         public undo() {
             if (this.current >= 0) {

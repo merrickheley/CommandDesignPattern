@@ -49,9 +49,7 @@ module Command {
         }
 
         public execute() {
-            this.object.attr({
-                transform: this.origTransform + (this.origTransform ? "T" : "t") + [this.dx, this.dy]
-            });
+
         }
 
         public undo() {
@@ -68,7 +66,9 @@ module Command {
         let circle = s.circle(60, 150, 50);
 
         let move = function (dx, dy) {
-            invoker.ExecuteCommand(new MoveCommand(this, this.data('origTransform'), dx, dy));
+            this.attr({
+                transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
+            });
         }
 
         let start = function () {

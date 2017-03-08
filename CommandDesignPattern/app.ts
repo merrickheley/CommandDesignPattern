@@ -53,11 +53,15 @@ module Command {
         }
 
         public execute() {
-
+            this.object.attr({
+                transform: this.origTransform + (this.origTransform ? "T" : "t") + [this.dx, this.dy]
+            }); 
         }
 
         public undo() {
-            console.log('undo pressed');
+            this.object.attr({
+                transform: this.origTransform + (this.origTransform ? "T" : "t")
+            });  
         }
     }
 
@@ -69,7 +73,12 @@ module Command {
         let rect = s.rect(20, 20, 40, 40);
         let circle = s.circle(60, 150, 50);
 
+        let tempdx: number;
+        let tempdy: number;
+
         let move = function (dx, dy) {
+            tempdx = dx;
+            tempdy = dy;
             this.attr({
                 transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
             });
@@ -78,8 +87,9 @@ module Command {
         let start = function () {
             this.data('origTransform', this.transform().local);
         }
+
         let stop = function () {
-            console.log('finished dragging');
+            invoker.StoreCommand(new MoveCommand(this, this.data('origTransform'), tempdx, tempdy));
         }
 
         rect.drag(move, start, stop);

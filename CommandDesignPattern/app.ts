@@ -79,9 +79,7 @@ module Command {
         let move = function (dx, dy) {
             tempdx = dx;
             tempdy = dy;
-            this.attr({
-                transform: this.data('origTransform') + (this.data('origTransform') ? "T" : "t") + [dx, dy]
-            });
+            new MoveCommand(this, this.data('origTransform'), dx, dy).execute();
         }
 
         let start = function () {
